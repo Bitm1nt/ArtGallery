@@ -1,0 +1,1561 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" href="images/logo.jpg">
+    <title>Admin Panel</title>
+    <style>
+        /* Reset and base styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: #0a0a0a;
+            color: white;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            min-height: 100vh;
+            line-height: 1.6;
+        }
+
+        /* Login Container */
+        .login-container {
+            max-width: 400px;
+            margin: 100px auto;
+            padding: 40px;
+            background: rgba(20, 20, 20, 0.95);
+            border-radius: 16px;
+            text-align: center;
+            border: 1px solid #333;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(10px);
+        }
+
+        .login-container h2 {
+            margin-bottom: 30px;
+            font-size: 28px;
+            color: white;
+            font-weight: 600;
+        }
+
+        /* Admin Container */
+        .admin-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            background: transparent;
+            min-height: 100vh;
+        }
+
+        .admin-header {
+            text-align: center;
+            margin-bottom: 30px;
+            padding: 30px;
+            background: rgba(20, 20, 20, 0.9);
+            border-radius: 16px;
+            border: 1px solid #333;
+            backdrop-filter: blur(10px);
+        }
+
+        .admin-header h1 {
+            font-size: 36px;
+            margin-bottom: 10px;
+            color: white;
+            font-weight: 700;
+        }
+
+        .admin-header p {
+            color: #ccc;
+            font-size: 18px;
+        }
+
+        /* Admin Sections */
+        .admin-section {
+            background: rgba(20, 20, 20, 0.9);
+            padding: 30px;
+            margin-bottom: 25px;
+            border-radius: 16px;
+            border: 1px solid #333;
+            backdrop-filter: blur(10px);
+        }
+
+        .admin-section h2 {
+            margin-bottom: 25px;
+            font-size: 24px;
+            color: white;
+            border-bottom: 2px solid #333;
+            padding-bottom: 10px;
+            font-weight: 600;
+        }
+
+        /* Forms */
+        .admin-form {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin-bottom: 25px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: #ccc;
+            font-weight: 500;
+            font-size: 14px;
+        }
+
+        .form-group input,
+        .form-group select {
+            width: 100%;
+            padding: 14px;
+            border: 1px solid #444;
+            border-radius: 10px;
+            background: rgba(10, 10, 10, 0.8);
+            color: white;
+            font-size: 16px;
+            transition: all 0.3s ease;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus {
+            border-color: #666;
+            outline: none;
+            background: rgba(15, 15, 15, 0.9);
+            box-shadow: 0 0 0 2px rgba(100, 100, 100, 0.2);
+        }
+
+        /* Toggle Switch */
+        .toggle-group {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 25px;
+            padding: 15px;
+            background: rgba(10, 10, 10, 0.6);
+            border-radius: 10px;
+            border: 1px solid #333;
+        }
+
+        .toggle-label {
+            flex: 1;
+            color: #ccc;
+            font-weight: 500;
+        }
+
+        .toggle-switch {
+            position: relative;
+            width: 60px;
+            height: 30px;
+        }
+
+        .toggle-switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+
+        .toggle-slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #333;
+            transition: .4s;
+            border-radius: 34px;
+        }
+
+        .toggle-slider:before {
+            position: absolute;
+            content: "";
+            height: 22px;
+            width: 22px;
+            left: 4px;
+            bottom: 4px;
+            background-color: white;
+            transition: .4s;
+            border-radius: 50%;
+        }
+
+        input:checked + .toggle-slider {
+            background-color: #4CAF50;
+        }
+
+        input:checked + .toggle-slider:before {
+            transform: translateX(30px);
+        }
+
+        /* Buttons */
+        .admin-button {
+            background: #444;
+            color: white;
+            border: none;
+            padding: 14px 28px;
+            border-radius: 10px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            margin-right: 10px;
+            margin-bottom: 10px;
+            font-size: 15px;
+            backdrop-filter: blur(10px);
+        }
+
+        .admin-button:hover {
+            background: #555;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        .admin-button:active {
+            transform: translateY(0);
+        }
+
+        .admin-button.danger {
+            background: #d32f2f;
+        }
+
+        .admin-button.danger:hover {
+            background: #f44336;
+        }
+
+        .admin-button.success {
+            background: #388e3c;
+        }
+
+        .admin-button.success:hover {
+            background: #4caf50;
+        }
+
+        .admin-button.warning {
+            background: #f57c00;
+        }
+
+        .admin-button.warning:hover {
+            background: #ff9800;
+        }
+
+        /* Stats Grid */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .stat-card {
+            background: rgba(10, 10, 10, 0.8);
+            padding: 25px;
+            border-radius: 12px;
+            text-align: center;
+            border-left: 4px solid #444;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+        }
+
+        .stat-card:hover {
+            transform: translateY(-5px);
+            border-left-color: #666;
+        }
+
+        .stat-value {
+            font-size: 28px;
+            font-weight: bold;
+            color: white;
+            margin-bottom: 8px;
+        }
+
+        .stat-label {
+            color: #ccc;
+            font-size: 14px;
+            font-weight: 500;
+        }
+
+        /* Status Messages */
+        .status-message {
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 10px;
+            text-align: center;
+            font-weight: 600;
+            backdrop-filter: blur(10px);
+        }
+
+        .status-success {
+            background: rgba(76, 175, 80, 0.15);
+            border: 1px solid #4caf50;
+            color: #4caf50;
+        }
+
+        .status-error {
+            background: rgba(244, 67, 54, 0.15);
+            border: 1px solid #f44336;
+            color: #f44336;
+        }
+
+        .status-warning {
+            background: rgba(255, 193, 7, 0.15);
+            border: 1px solid #ffc107;
+            color: #ffc107;
+        }
+
+        .current-status {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid #333;
+            padding: 25px;
+            border-radius: 12px;
+            margin: 20px 0;
+            font-size: 16px;
+            backdrop-filter: blur(10px);
+        }
+
+        .status-indicator {
+            display: inline-block;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            margin-right: 10px;
+        }
+
+        .status-active {
+            background: #4caf50;
+            box-shadow: 0 0 10px #4caf50;
+        }
+
+        .status-inactive {
+            background: #f44336;
+            box-shadow: 0 0 10px #f44336;
+        }
+
+        .status-upcoming {
+            background: #ff9800;
+            box-shadow: 0 0 10px #ff9800;
+        }
+
+        .status-ended {
+            background: #9e9e9e;
+            box-shadow: 0 0 10px #9e9e9e;
+        }
+
+        /* Quick Actions */
+        .quick-actions {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+            margin-top: 20px;
+        }
+
+        /* System Info */
+        .system-info {
+            display: grid;
+            grid-template-columns: auto 1fr;
+            gap: 12px;
+            align-items: center;
+            margin-bottom: 12px;
+            padding: 12px;
+            background: rgba(10, 10, 10, 0.6);
+            border-radius: 8px;
+            border: 1px solid #333;
+        }
+
+        .system-info label {
+            color: #ccc;
+            font-weight: 500;
+        }
+
+        /* Mobile Responsive */
+        @media (max-width: 768px) {
+            .admin-form {
+                grid-template-columns: 1fr;
+            }
+            
+            .admin-container {
+                padding: 15px;
+            }
+            
+            .admin-section {
+                padding: 20px;
+            }
+            
+            .admin-header {
+                padding: 20px;
+            }
+            
+            .admin-header h1 {
+                font-size: 28px;
+            }
+            
+            .quick-actions {
+                flex-direction: column;
+            }
+            
+            .admin-button {
+                width: 100%;
+                margin-right: 0;
+            }
+            
+            .stats-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .login-container {
+                margin: 50px 20px;
+                padding: 30px 20px;
+            }
+            
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .admin-header h1 {
+                font-size: 24px;
+            }
+        }
+
+        /* Credentials Hint */
+        .credentials-hint {
+            margin-top: 20px;
+            padding: 15px;
+            background: rgba(255,255,255,0.05);
+            border-radius: 8px;
+            font-size: 14px;
+            border: 1px solid #333;
+        }
+
+        .credentials-hint code {
+            background: rgba(0,0,0,0.3);
+            padding: 4px 8px;
+            border-radius: 6px;
+            font-family: monospace;
+            color: #ff9800;
+        }
+
+        /* Logout Button */
+        .logout-btn {
+            position: absolute;
+            top: 30px;
+            right: 30px;
+            background: rgba(211, 47, 47, 0.9);
+            border: 1px solid #d32f2f;
+        }
+
+        .logout-btn:hover {
+            background: rgba(244, 67, 54, 0.9);
+        }
+
+        /* Timeframe Controls - UPDATED: Date only */
+        .timeframe-controls {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin-bottom: 25px;
+        }
+
+        .timeframe-helper {
+            background: rgba(10, 10, 10, 0.6);
+            border: 1px solid #333;
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+
+        .timeframe-helper h3 {
+            color: #ccc;
+            margin-bottom: 10px;
+            font-size: 16px;
+        }
+
+        .helper-text {
+            color: #999;
+            font-size: 14px;
+            line-height: 1.4;
+        }
+
+        /* Download Stats Section */
+        .download-stats {
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid #333;
+        }
+
+        .download-stats-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+        }
+
+        .download-stats-table th,
+        .download-stats-table td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #333;
+        }
+
+        .download-stats-table th {
+            color: #ccc;
+            font-weight: 600;
+            background: rgba(10, 10, 10, 0.6);
+        }
+
+        .download-stats-table td {
+            color: #999;
+        }
+
+        .quality-indicator {
+            display: inline-block;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        .quality-high {
+            background: rgba(76, 175, 80, 0.2);
+            color: #4caf50;
+        }
+
+        .quality-medium {
+            background: rgba(255, 193, 7, 0.2);
+            color: #ffc107;
+        }
+
+        .quality-low {
+            background: rgba(244, 67, 54, 0.2);
+            color: #f44336;
+        }
+
+        /* Mobile Responsive for timeframe */
+        @media (max-width: 768px) {
+            .timeframe-controls {
+                grid-template-columns: 1fr;
+            }
+            
+            .download-stats-table {
+                font-size: 14px;
+            }
+            
+            .download-stats-table th,
+            .download-stats-table td {
+                padding: 8px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div id="login-page" class="login-container">
+        <h2>Admin Login</h2>
+        <div class="login-form">
+            <div class="form-group">
+                <label for="username">Username</label>
+                <input type="text" id="username" placeholder="Enter username" autocomplete="username">
+            </div>
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" id="password" placeholder="Enter password" autocomplete="current-password">
+            </div>
+            <button class="admin-button success" onclick="login()" style="width: 100%; margin: 20px 0;">Login</button>
+            <div id="login-message" class="status-message" style="display: none;"></div>
+        </div>
+    </div>
+
+    <div id="admin-panel" class="admin-container" style="display: none;">
+        <div class="admin-header">
+            <h1>Welcome MAMA</h1>
+            <p>Manage gallery visibility in real-time</p>
+            <button class="admin-button danger logout-btn" onclick="logout()">Logout</button>
+            <div style="clear: both;"></div>
+        </div>
+
+        <div class="admin-section">
+            <h2>Current Status</h2>
+            <div id="current-status" class="current-status">
+                Loading...
+            </div>
+        </div>
+
+        <div class="admin-section">
+            <h2>Gallery Controls</h2>
+            
+            <!-- Manual Toggle -->
+            <div class="toggle-group">
+                <div class="toggle-label">
+                    <strong>Manual Control</strong><br>
+                    <small>Override timeframe and manually control visibility</small>
+                </div>
+                <label class="toggle-switch">
+                    <input type="checkbox" id="manual-toggle" onchange="toggleManualControl()">
+                    <span class="toggle-slider"></span>
+                </label>
+            </div>
+
+            <!-- Timeframe Settings - UPDATED: Date only -->
+            <div id="timeframe-section">
+                <div class="timeframe-helper">
+                    <h3>📅 Timeframe Settings</h3>
+                    <div class="helper-text">
+                        Set start and end dates to automatically control gallery visibility. The gallery will be visible during this period (entire day).
+                    </div>
+                </div>
+                
+                <div class="timeframe-controls">
+                    <div class="form-group">
+                        <label for="start-date">Start Date</label>
+                        <input type="date" id="start-date">
+                    </div>
+                    <div class="form-group">
+                        <label for="end-date">End Date</label>
+                        <input type="date" id="end-date">
+                    </div>
+                </div>
+            </div>
+
+            <div style="margin-top: 25px;">
+                <button class="admin-button success" onclick="updateConfig()">Apply Settings</button>
+                <button class="admin-button warning" onclick="clearTimeframe()">Clear Timeframe</button>
+                <button class="admin-button" onclick="resetToDefault()">Reset to Default</button>
+            </div>
+            
+            <div id="config-message" class="status-message" style="display: none;"></div>
+        </div>
+
+        <div class="admin-section">
+            <h2>Quick Actions</h2>
+            <div class="quick-actions">
+                <button class="admin-button success" onclick="activateGallery()">Activate Gallery</button>
+                <button class="admin-button danger" onclick="deactivateGallery()">Deactivate Gallery</button>
+                <button class="admin-button" onclick="extendOneDay()">Extend 1 Day</button>
+                <button class="admin-button" onclick="extendOneWeek()">Extend 1 Week</button>
+            </div>
+        </div>
+
+        <div class="admin-section">
+            <h2>Download Statistics</h2>
+            <div class="download-stats">
+                <p>Track artwork downloads and quality degradation</p>
+                <div id="download-stats-container">
+                    <table class="download-stats-table">
+                        <thead>
+                            <tr>
+                                <th>Artwork</th>
+                                <th>Downloads</th>
+                                <th>Current Quality</th>
+                                <th>Quality Tier</th>
+                                <th>Last Downloaded</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="download-stats-body">
+                            <!-- Stats will be populated here -->
+                        </tbody>
+                    </table>
+                </div>
+                <div style="margin-top: 20px;">
+                    <button class="admin-button" onclick="refreshDownloadStats()">Refresh Stats</button>
+                    <button class="admin-button warning" onclick="resetAllDownloadStats()">Reset All Stats</button>
+                    <button class="admin-button success" onclick="initializeArtworkData()">RE-Retrieve Data</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="admin-section">
+            <h2>Live Statistics</h2>
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-value" id="days-remaining">-</div>
+                    <div class="stat-label">Days Remaining</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value" id="total-duration">-</div>
+                    <div class="stat-label">Total Duration</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value" id="gallery-status">-</div>
+                    <div class="stat-label">Gallery Status</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value" id="last-updated">-</div>
+                    <div class="stat-label">Last Updated</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="admin-section">
+            <h2>System Information</h2>
+            <div class="system-info">
+                <label>Firebase Connection:</label>
+                <div>
+                    <span id="firebase-status" class="status-indicator status-inactive"></span>
+                    <span id="firebase-status-text">Checking...</span>
+                </div>
+            </div>
+            <div class="system-info">
+                <label>Current Time:</label>
+                <span id="current-time">-</span>
+            </div>
+            <div class="system-info">
+                <label>Manual Control:</label>
+                <span id="manual-status">Disabled</span>
+            </div>
+            <button class="admin-button" onclick="refreshData()">Refresh Data</button>
+        </div>
+    </div>
+
+    <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-database-compat.js"></script>
+
+    <script>
+    // Firebase configuration
+    const firebaseConfig = {
+        apiKey: "AIzaSyAgq9nILlMXcmfjJGXyu9VgxRc0rBB8M2A",
+        authDomain: "art-gallery-website-4b646.firebaseapp.com",
+        databaseURL: "https://art-gallery-website-4b646-default-rtdb.firebaseio.com",
+        projectId: "art-gallery-website-4b646",
+        storageBucket: "art-gallery-website-4b646.firebasestorage.app",
+        messagingSenderId: "467391852619",
+        appId: "1:467391852619:web:9e4d6612bf2402c9adddce"
+    };
+
+    // Initialize Firebase
+    let database;
+    let firebaseInitialized = false;
+    
+    try {
+        firebase.initializeApp(firebaseConfig);
+        database = firebase.database();
+        firebaseInitialized = true;
+        console.log("Firebase initialized successfully");
+    } catch (error) {
+        console.error("Firebase initialization error:", error);
+        firebaseInitialized = false;
+    }
+
+    // Hardcoded admin credentials
+    const ADMIN_CREDENTIALS = {
+        username: "Jolly@",
+        password: "@J0lly"
+    };
+
+    let currentConfig = null;
+    let configListener = null;
+    let downloadStatsListener = null;
+
+    // Check authentication status
+    function checkAuth() {
+        const isLoggedIn = localStorage.getItem('adminLoggedIn') === 'true';
+        if (isLoggedIn) {
+            showAdminPanel();
+        } else {
+            showLoginPage();
+        }
+    }
+
+    // Show login page
+    function showLoginPage() {
+        document.getElementById('login-page').style.display = 'block';
+        document.getElementById('admin-panel').style.display = 'none';
+        
+        // Remove Firebase listeners when logging out
+        if (configListener && database) {
+            database.ref('artConfig').off('value', configListener);
+            configListener = null;
+        }
+        if (downloadStatsListener && database) {
+            database.ref('downloadStats').off('value', downloadStatsListener);
+            downloadStatsListener = null;
+        }
+        
+        setTimeout(() => {
+            const usernameField = document.getElementById('username');
+            if (usernameField) usernameField.focus();
+        }, 100);
+    }
+
+    // Login function
+    function login() {
+        const username = document.getElementById('username').value;
+        const password = document.getElementById('password').value;
+        const messageDiv = document.getElementById('login-message');
+
+        if (username === ADMIN_CREDENTIALS.username && password === ADMIN_CREDENTIALS.password) {
+            localStorage.setItem('adminLoggedIn', 'true');
+            showAdminPanel();
+            if (messageDiv) messageDiv.style.display = 'none';
+        } else {
+            if (messageDiv) {
+                messageDiv.textContent = 'Invalid username or password!';
+                messageDiv.className = 'status-message status-error';
+                messageDiv.style.display = 'block';
+            }
+            
+            const passwordField = document.getElementById('password');
+            if (passwordField) passwordField.value = '';
+        }
+    }
+
+    // Allow Enter key to submit login form
+    function handleLoginKeyPress(event) {
+        if (event.key === 'Enter') {
+            login();
+        }
+    }
+
+    // Logout function
+    function logout() {
+        localStorage.removeItem('adminLoggedIn');
+        showLoginPage();
+        
+        const usernameField = document.getElementById('username');
+        const passwordField = document.getElementById('password');
+        const messageDiv = document.getElementById('login-message');
+        
+        if (usernameField) usernameField.value = '';
+        if (passwordField) passwordField.value = '';
+        if (messageDiv) messageDiv.style.display = 'none';
+    }
+
+    // Show admin panel
+    function showAdminPanel() {
+        document.getElementById('login-page').style.display = 'none';
+        document.getElementById('admin-panel').style.display = 'block';
+        
+        if (firebaseInitialized) {
+            loadCurrentConfig();
+            loadDownloadStats();
+            checkFirebaseConnection();
+        } else {
+            showMessage('Firebase not initialized. Please check your configuration.', 'error');
+        }
+        
+        startClock();
+    }
+
+    // Load current configuration with real-time updates
+    function loadCurrentConfig() {
+        if (!database || !firebaseInitialized) {
+            showMessage('Firebase not initialized', 'error');
+            return;
+        }
+
+        // Remove existing listener if any
+        if (configListener) {
+            database.ref('artConfig').off('value', configListener);
+        }
+
+        // Set up real-time listener
+        configListener = database.ref('artConfig').on('value', (snapshot) => {
+            const config = snapshot.val();
+            currentConfig = config;
+            
+            if (config) {
+                updateFormFields(config);
+                updateStatusDisplay(config);
+                updateStatistics(config);
+                console.log('Real-time config update received:', config);
+            } else {
+                // No config found - set default (hidden)
+                const defaultConfig = {
+                    START_DATE: null,
+                    END_DATE: null,
+                    IS_VISIBLE: false,
+                    MANUAL_CONTROL: false,
+                    lastUpdated: new Date().toISOString()
+                };
+                database.ref('artConfig').set(defaultConfig).catch(error => {
+                    console.error('Error setting default config:', error);
+                    showMessage('Error setting default configuration: ' + error.message, 'error');
+                });
+            }
+        }, (error) => {
+            console.error('Error loading config:', error);
+            showMessage('Error loading configuration: ' + error.message, 'error');
+        });
+    }
+
+    // Load download statistics
+    function loadDownloadStats() {
+        if (!database || !firebaseInitialized) {
+            console.log('Firebase not available for download stats');
+            return;
+        }
+        
+        // Remove existing listener if any
+        if (downloadStatsListener) {
+            database.ref('downloadStats').off('value', downloadStatsListener);
+        }
+        
+        // Set up real-time listener for download stats
+        downloadStatsListener = database.ref('downloadStats').on('value', (snapshot) => {
+            const stats = snapshot.val();
+            updateDownloadStatsTable(stats);
+        }, (error) => {
+            console.error('Error loading download stats:', error);
+            showMessage('Error loading download statistics: ' + error.message, 'error');
+        });
+    }
+
+    // Initialize artwork data in database
+    function initializeArtworkData() {
+        if (!database || !firebaseInitialized) {
+            showMessage('Firebase not initialized', 'error');
+            return;
+        }
+
+        const artworks = [
+            // Existing artworks
+            { title: 'Bloom Eye', date: 'Aug. 2025', image: 'images/Bloom Eye Aug. 2025.PNG' },
+            { title: 'Become a Challenge', date: 'Oct. 2025', image: 'images/Become a CHALLENGE Oct. 2025.PNG' },
+            { title: 'Disposable', date: 'Nov. 2025', image: 'images/Disposable Nov. 2025.PNG' },
+            { title: 'Approval', date: 'Sept. 2025', image: 'images/Approval Sept .2025.PNG' },
+            { title: 'ECig', date: 'Nov. 2025', image: 'images/ECig Nov. 2025.PNG' },
+            { title: 'Adol', date: 'Sept. 2025', image: 'images/Adol Sept.2025.PNG' },
+            { title: 'Address', date: 'Oct. 2025', image: 'images/Address Oct. 2025.PNG' },
+            { title: 'Am I', date: 'Oct. 2025', image: 'images/Am I Oct. 2025.PNG' },
+            { title: 'Broken Screen', date: 'Oct. 2025', image: 'images/Broken Screen Oct. 2025.PNG' },
+            { title: 'Empty', date: 'Sept. 2025', image: 'images/Empty Sept. 2025.PNG' },
+            { title: 'Filled', date: 'Sept. 2025', image: 'images/Filled Sept. 2025.PNG' },
+            { title: 'For Profit', date: 'Aug. 2025', image: 'images/For Profit Aug. 2025.PNG' },
+            { title: 'Fri B', date: 'Oct. 2025', image: 'images/Fri B Oct. 2025 .PNG' },
+            { title: 'Fri S', date: 'Oct. 2025', image: 'images/Fri S Oct. 2025.PNG' },
+            { title: 'Hate', date: 'Sept. 2025', image: 'images/HATE Sept. 2025.PNG' },
+            { title: 'Rejected View', date: 'Sept. 2025', image: 'images/Rejected View Sept. 2025.PNG' },
+            { title: 'Unpalatable', date: 'Oct. 2025', image: 'images/Unpalatable Oct. 2025.PNG' },
+            { title: 'Unsatisfied Fem', date: 'Nov. 2025', image: 'images/Unsatisfied Fem Nov. 2025.PNG' },
+            { title: 'Urinal', date: 'Nov. 2025', image: 'images/Urinal Sept. 2025.PNG' },
+            { title: 'Wet', date: 'Aug. 2025', image: 'images/Wet Aug. 2025.PNG' },
+            
+            // New artworks including GIFs
+            { title: 'adol 2', date: 'Sept. 2025', image: 'images/adol 2 Sept. 2025.PNG' },
+            { title: 'Another Screen', date: 'Nov. 2025', image: 'images/Another Screen Nov. 2025.png' },
+            { title: 'Blame', date: 'Nov. 2025', image: 'images/Blame Nov. 2025.png' },
+            { title: 'Body n Smoke', date: 'Nov. 2025', image: 'images/Body n Smoke Nov. 2025.PNG' },
+            { title: 'Cost Blame', date: 'Nov. 2025', image: 'images/Cost Blame Nov. 2025.png' },
+            { title: 'Edit Screen', date: 'Nov. 2025', image: 'images/Edit Screen Nov. 2025.png' },
+            { title: 'Eyes', date: 'Sept. 2025', image: 'images/Eyes Sept. 2025.PNG' },
+            { title: 'Gun Fear', date: 'Nov. 2025', image: 'images/Gun Fear Nov. 2025 .PNG' },
+            { title: 'Library Vape', date: 'Nov. 2025', image: 'images/Library Vape Nov. 2025.PNG' },
+            { title: 'Locker 1', date: 'Sept. 2025', image: 'images/Locker 1 Sept. 2025.PNG' },
+            { title: 'Locker 2', date: 'Sept. 2025', image: 'images/Locker 2 Sept. 2025.PNG' },
+            { title: 'Locker 3', date: 'Sept. 2025', image: 'images/Locker 3 Sept. 2025.PNG' },
+            { title: 'Memories', date: 'Sept. 2025', image: 'images/Memories Sept. 2025.PNG' },
+            { title: 'next', date: 'Nov. 2025', image: 'images/next Nov. 2025.PNG' },
+            { title: 'Process Plaster Ink', date: 'Sept. 2025', image: 'images/Process Plaster Ink Sept. 2025.png' },
+            { title: 'Process', date: 'Sept. 2025', image: 'images/Process Sept. 2025.png' },
+            { title: 'Public', date: 'Oct. 2025', image: 'images/Public Oct. 2025.png' },
+            { title: 'Refuse and Dance', date: 'Nov. 2025', image: 'images/Refuse and Dance Nov. 2025.png' },
+            { title: 'To Anon', date: 'Sept. 2025', image: 'images/To Anon Sept. 2025.png' },
+            { title: 'Turn It Off', date: 'Oct. 2025', image: 'images/Turn It Off Oct. 2025.png' }
+        ];
+
+        let initializedCount = 0;
+        const totalArtworks = artworks.length;
+        let hasErrors = false;
+
+        artworks.forEach(artwork => {
+            const encodedTitle = encodeArtTitle(artwork.title);
+            const artworkRef = database.ref('artworkData/' + encodedTitle);
+            
+            // Check if artwork data already exists
+            artworkRef.once('value').then((snapshot) => {
+                if (!snapshot.exists()) {
+                    // Initialize artwork data
+                    return artworkRef.set({
+                        title: artwork.title,
+                        date: artwork.date,
+                        image: artwork.image,
+                        createdAt: new Date().toISOString()
+                    });
+                }
+            }).then(() => {
+                initializedCount++;
+                if (initializedCount === totalArtworks) {
+                    if (hasErrors) {
+                        showMessage(`Artwork data initialized with some errors. ${initializedCount} artworks processed.`, 'warning');
+                    } else {
+                        showMessage(`Artwork data initialized successfully! ${initializedCount} artworks processed.`, 'success');
+                    }
+                }
+            }).catch((error) => {
+                console.error('Error initializing artwork data for', artwork.title, ':', error);
+                hasErrors = true;
+                initializedCount++;
+                if (initializedCount === totalArtworks) {
+                    showMessage(`Artwork data initialization completed with errors. ${initializedCount} artworks processed.`, 'error');
+                }
+            });
+        });
+    }
+
+    // Update download stats table
+    function updateDownloadStatsTable(stats) {
+        const tbody = document.getElementById('download-stats-body');
+        if (!tbody) return;
+        
+        if (!stats) {
+            tbody.innerHTML = '<tr><td colspan="6" style="text-align: center; color: #999;">No download statistics available</td></tr>';
+            return;
+        }
+        
+        let html = '';
+        const artworks = [
+            // Existing artworks
+            'Bloom Eye', 'Become a Challenge', 'Disposable', 'Approval', 'ECig', 'Adol',
+            'Address', 'Am I', 'Broken Screen', 'Empty', 'Filled', 'For Profit',
+            'Fri B', 'Fri S', 'Hate', 'Rejected View', 'Unpalatable', 'Unsatisfied Fem',
+            'Urinal', 'Wet',
+            
+            // New artworks including GIFs
+            'adol 2', 'Another Screen', 'Blame', 'Body n Smoke', 'Cost Blame',
+            'Edit Screen', 'Eyes', 'Gun Fear', 'Library Vape', 'Locker 1', 
+            'Locker 2', 'Locker 3', 'Memories', 'next', 'Process Plaster Ink', 
+            'Process', 'Public', 'Refuse and Dance', 'To Anon', 'Turn It Off'
+        ];
+        
+        artworks.forEach(artwork => {
+            const encodedTitle = encodeArtTitle(artwork);
+            const artStats = stats[encodedTitle] || { downloadCount: 0, lastDownloaded: null };
+            const quality = calculateQuality(artStats.downloadCount);
+            const qualityTier = getQualityTier(quality);
+            const qualityClass = getQualityClass(qualityTier);
+            const lastDownloaded = artStats.lastDownloaded ? 
+                new Date(artStats.lastDownloaded).toLocaleString() : 'Never';
+            
+            html += `
+                <tr>
+                    <td>${artwork}</td>
+                    <td>${artStats.downloadCount}</td>
+                    <td><span class="quality-indicator ${qualityClass}">${quality}%</span></td>
+                    <td><span class="quality-indicator ${qualityClass}">${qualityTier.toUpperCase()}</span></td>
+                    <td>${lastDownloaded}</td>
+                    <td>
+                        <button class="admin-button warning" onclick="resetArtworkStats('${encodedTitle}', '${artwork}')">Reset</button>
+                    </td>
+                </tr>
+            `;
+        });
+        
+        tbody.innerHTML = html;
+    }
+
+    // Encode art title for Firebase key
+    function encodeArtTitle(title) {
+        return title.replace(/[.#$\/\[\]]/g, '_');
+    }
+
+    // Calculate quality based on download count - UPDATED: 5% per download
+function calculateQuality(downloadCount) {
+    // First download (count=0) should be 100%, then decreases by 5% each subsequent download
+    // downloadCount represents previous downloads, so for the first download we want 100%
+    const quality = Math.max(5, 100 - (downloadCount * 5));
+    return quality;
+}
+
+    // Get quality tier based on percentage
+    function getQualityTier(quality) {
+        if (quality >= 80) return 'premium';
+        if (quality >= 50) return 'medium';
+        return 'low';
+    }
+
+    // Get quality class for styling
+    function getQualityClass(qualityTier) {
+        if (qualityTier === 'premium') return 'quality-high';
+        if (qualityTier === 'medium') return 'quality-medium';
+        return 'quality-low';
+    }
+
+    // Reset artwork statistics
+    function resetArtworkStats(encodedTitle, artworkName) {
+        if (!database || !firebaseInitialized) return;
+        
+        if (confirm(`Are you sure you want to reset the download statistics for "${artworkName}"?`)) {
+            const statsRef = database.ref('downloadStats/' + encodedTitle);
+            
+            statsRef.set({
+                downloadCount: 0,
+                lastDownloaded: null,
+                totalDownloads: 0
+            }).then(() => {
+                showMessage(`Download statistics for "${artworkName}" reset successfully!`, 'success');
+                // Force refresh of the stats table
+                loadDownloadStats();
+            }).catch((error) => {
+                console.error('Error resetting statistics:', error);
+                showMessage('Error resetting statistics: ' + error.message, 'error');
+            });
+        }
+    }
+
+    // Reset all download statistics
+    // Reset all download statistics - UPDATED: Also clear user downloads
+function resetAllDownloadStats() {
+    if (!database || !firebaseInitialized) return;
+    
+    if (confirm('Are you sure you want to reset ALL download statistics? This will allow all users to download artworks again. This cannot be undone.')) {
+        database.ref('downloadStats').remove()
+            .then(() => {
+                showMessage('All download statistics reset successfully! Users can now download artworks again.', 'success');
+                
+                // Also trigger client-side cleanup (this will run on each user's next visit)
+                if (database && firebaseInitialized) {
+                    // Set a flag in Firebase that gallery was reset
+                    database.ref('galleryReset').set({
+                        resetTime: new Date().toISOString(),
+                        resetBy: 'admin'
+                    }).catch(error => {
+                        console.error('Error setting reset flag:', error);
+                    });
+                }
+            })
+            .catch((error) => {
+                showMessage('Error resetting statistics: ' + error.message, 'error');
+            });
+    }
+}
+
+    // Refresh download stats
+    function refreshDownloadStats() {
+        loadDownloadStats();
+        showMessage('Download statistics refreshed!', 'success');
+    }
+
+    // Update form fields
+    function updateFormFields(config) {
+        const startDateField = document.getElementById('start-date');
+        const endDateField = document.getElementById('end-date');
+        const manualToggle = document.getElementById('manual-toggle');
+        const manualStatus = document.getElementById('manual-status');
+        
+        if (startDateField) startDateField.value = config.START_DATE || '';
+        if (endDateField) endDateField.value = config.END_DATE || '';
+        if (manualToggle) manualToggle.checked = config.MANUAL_CONTROL || false;
+        if (manualStatus) manualStatus.textContent = config.MANUAL_CONTROL ? 'Enabled' : 'Disabled';
+        
+        // Enable/disable timeframe based on manual control
+        const timeframeSection = document.getElementById('timeframe-section');
+        if (timeframeSection) {
+            timeframeSection.style.opacity = config.MANUAL_CONTROL ? '0.5' : '1';
+            timeframeSection.style.pointerEvents = config.MANUAL_CONTROL ? 'none' : 'all';
+        }
+    }
+
+    // Toggle manual control
+    function toggleManualControl() {
+        if (!currentConfig || !database || !firebaseInitialized) return;
+        
+        const manualToggle = document.getElementById('manual-toggle');
+        const manualControl = manualToggle.checked;
+        
+        const update = {
+            MANUAL_CONTROL: manualControl,
+            lastUpdated: new Date().toISOString()
+        };
+        
+        // If enabling manual control, force visibility based on current toggle state
+        if (manualControl) {
+            update.IS_VISIBLE = manualControl;
+        }
+        
+        database.ref('artConfig').update(update)
+            .then(() => {
+                showMessage(`Manual control ${manualControl ? 'enabled' : 'disabled'}!`, 'success');
+            })
+            .catch((error) => {
+                showMessage('Error updating manual control: ' + error.message, 'error');
+                // Revert the toggle if update fails
+                manualToggle.checked = !manualControl;
+            });
+    }
+
+    // Update configuration - UPDATED: Date only inputs
+    function updateConfig() {
+        if (!database || !firebaseInitialized) {
+            showMessage('Firebase not initialized', 'error');
+            return;
+        }
+
+        const startDate = document.getElementById('start-date').value;
+        const endDate = document.getElementById('end-date').value;
+        const manualControl = document.getElementById('manual-toggle').checked;
+
+        // If manual control is enabled, don't validate timeframe
+        if (!manualControl) {
+            if (!startDate || !endDate) {
+                showMessage('Please fill in both start and end dates!', 'error');
+                return;
+            }
+
+            if (new Date(startDate) >= new Date(endDate)) {
+                showMessage('End date must be after start date!', 'error');
+                return;
+            }
+        }
+
+        const config = {
+            START_DATE: startDate || null,
+            END_DATE: endDate || null,
+            IS_VISIBLE: manualControl ? true : (startDate && endDate ? true : false),
+            MANUAL_CONTROL: manualControl,
+            lastUpdated: new Date().toISOString()
+        };
+
+        database.ref('artConfig').set(config)
+            .then(() => {
+                showMessage('Configuration updated successfully!', 'success');
+                currentConfig = config;
+            })
+            .catch((error) => {
+                showMessage('Error updating configuration: ' + error.message, 'error');
+            });
+    }
+
+    // Clear timeframe
+    function clearTimeframe() {
+        if (!database || !firebaseInitialized) return;
+        
+        const updates = {
+            START_DATE: null,
+            END_DATE: null,
+            MANUAL_CONTROL: false,
+            IS_VISIBLE: false,
+            lastUpdated: new Date().toISOString()
+        };
+        
+        database.ref('artConfig').update(updates)
+            .then(() => {
+                showMessage('Timeframe cleared!', 'success');
+            })
+            .catch((error) => {
+                showMessage('Error clearing timeframe: ' + error.message, 'error');
+            });
+    }
+
+    // Reset to default configuration (hidden)
+    function resetToDefault() {
+        if (!database || !firebaseInitialized) {
+            showMessage('Firebase not initialized', 'error');
+            return;
+        }
+
+        const defaultConfig = {
+            START_DATE: null,
+            END_DATE: null,
+            IS_VISIBLE: false,
+            MANUAL_CONTROL: false,
+            lastUpdated: new Date().toISOString()
+        };
+
+        database.ref('artConfig').set(defaultConfig)
+            .then(() => {
+                showMessage('Configuration reset to default!', 'success');
+                currentConfig = defaultConfig;
+            })
+            .catch((error) => {
+                showMessage('Error resetting configuration: ' + error.message, 'error');
+            });
+    }
+
+    // Quick action functions
+    function activateGallery() {
+        updateVisibility(true);
+    }
+
+    function deactivateGallery() {
+        updateVisibility(false);
+    }
+
+    function extendOneDay() {
+        if (currentConfig && currentConfig.END_DATE) {
+            const endDate = new Date(currentConfig.END_DATE);
+            endDate.setDate(endDate.getDate() + 1);
+            // Format as YYYY-MM-DD for date input
+            const formattedDate = endDate.toISOString().split('T')[0];
+            updateField('END_DATE', formattedDate);
+        }
+    }
+
+    function extendOneWeek() {
+        if (currentConfig && currentConfig.END_DATE) {
+            const endDate = new Date(currentConfig.END_DATE);
+            endDate.setDate(endDate.getDate() + 7);
+            // Format as YYYY-MM-DD for date input
+            const formattedDate = endDate.toISOString().split('T')[0];
+            updateField('END_DATE', formattedDate);
+        }
+    }
+
+    function updateVisibility(isVisible) {
+        if (!currentConfig || !database || !firebaseInitialized) return;
+        
+        const updates = {
+            IS_VISIBLE: isVisible,
+            MANUAL_CONTROL: true, // Enable manual control when using quick actions
+            lastUpdated: new Date().toISOString()
+        };
+        
+        database.ref('artConfig').update(updates)
+            .then(() => {
+                showMessage(`Gallery ${isVisible ? 'activated' : 'deactivated'}!`, 'success');
+            })
+            .catch((error) => {
+                showMessage('Error updating visibility: ' + error.message, 'error');
+            });
+    }
+
+    function updateField(field, value) {
+        if (!currentConfig || !database || !firebaseInitialized) return;
+        
+        const update = {};
+        update[field] = value;
+        update.lastUpdated = new Date().toISOString();
+
+        database.ref('artConfig').update(update)
+            .then(() => {
+                showMessage(`${field} updated successfully!`, 'success');
+            })
+            .catch((error) => {
+                showMessage('Error updating field: ' + error.message, 'error');
+            });
+    }
+
+   // Update status display - MODIFIED: Date only, no time information
+function updateStatusDisplay(config) {
+    const statusDiv = document.getElementById('current-status');
+    if (!statusDiv) return;
+
+    const now = new Date();
+    const startDate = config.START_DATE ? new Date(config.START_DATE) : null;
+    const endDate = config.END_DATE ? new Date(config.END_DATE) : null;
+
+    let status, indicator, message;
+
+    if (config.MANUAL_CONTROL) {
+        status = config.IS_VISIBLE ? 'Manually Active' : 'Manually Hidden';
+        indicator = config.IS_VISIBLE ? 'status-active' : 'status-inactive';
+        message = `Gallery is ${config.IS_VISIBLE ? 'visible' : 'hidden'} due to manual control.`;
+    } else if (!config.IS_VISIBLE) {
+        status = 'Hidden';
+        indicator = 'status-inactive';
+        message = 'The gallery is currently hidden from visitors.';
+    } else if (startDate && now < startDate) {
+        status = 'Upcoming';
+        indicator = 'status-upcoming';
+        message = `Gallery will open on ${formatDisplayDate(config.START_DATE)}`;
+    } else if (endDate && now > endDate) {
+        status = 'Ended';
+        indicator = 'status-ended';
+        message = 'The gallery exhibition has ended.';
+    } else {
+        status = 'Active';
+        indicator = 'status-active';
+        message = `Gallery is active until ${formatDisplayDate(config.END_DATE)}`;
+    }
+
+    statusDiv.innerHTML = `
+        <span class="status-indicator ${indicator}"></span>
+        <strong>${status}</strong> - ${message}
+        <br><br>
+        <small>
+            ${config.MANUAL_CONTROL ? '<strong>Mode:</strong> Manual Control' : 
+              startDate && endDate ? `<strong>Period:</strong> ${formatDisplayDate(config.START_DATE)} to ${formatDisplayDate(config.END_DATE)}` :
+              '<strong>Mode:</strong> No timeframe set'}
+        </small>
+    `;
+}
+
+    // Helper function to get human-readable time until/left message
+    function getTimeUntilMessage(timeDiff, prefix = '', suffix = '') {
+        const seconds = Math.floor(timeDiff / 1000);
+        const minutes = Math.floor(seconds / 60);
+        const hours = Math.floor(minutes / 60);
+        const days = Math.floor(hours / 24);
+        
+        if (timeDiff <= 0) {
+            return suffix ? `${prefix} - Ending soon` : `${prefix} - Starting soon`;
+        }
+        
+        if (days > 0) {
+            return `${prefix} in ${days} day${days !== 1 ? 's' : ''}${suffix ? ' ' + suffix : ''}`;
+        } else if (hours > 0) {
+            return `${prefix} in ${hours} hour${hours !== 1 ? 's' : ''}${suffix ? ' ' + suffix : ''}`;
+        } else if (minutes > 0) {
+            return `${prefix} in ${minutes} minute${minutes !== 1 ? 's' : ''}${suffix ? ' ' + suffix : ''}`;
+        } else {
+            return `${prefix} in less than a minute${suffix ? ' ' + suffix : ''}`;
+        }
+    }
+
+    // Format date for display - UPDATED: Date only
+    function formatDisplayDate(dateString) {
+        if (!dateString) return 'Not set';
+        try {
+            const date = new Date(dateString);
+            // If it's a date-only string, add time to make it work properly
+            const adjustedDate = dateString.includes('T') ? date : new Date(dateString + 'T00:00:00');
+            return adjustedDate.toLocaleDateString('en-US', { 
+                year: 'numeric', 
+                month: 'short', 
+                day: 'numeric'
+            });
+        } catch (error) {
+            return 'Invalid Date';
+        }
+    }
+
+    // Update statistics
+    function updateStatistics(config) {
+        const now = new Date();
+        const startDate = config.START_DATE ? new Date(config.START_DATE) : null;
+        const endDate = config.END_DATE ? new Date(config.END_DATE) : null;
+
+        // Days remaining
+        const daysRemainingEl = document.getElementById('days-remaining');
+        if (daysRemainingEl) {
+            if (config.MANUAL_CONTROL || !endDate) {
+                daysRemainingEl.textContent = '∞';
+            } else {
+                const daysRemaining = Math.max(0, Math.floor((endDate - now) / (1000 * 60 * 60 * 24)));
+                daysRemainingEl.textContent = daysRemaining;
+            }
+        }
+
+        // Total duration
+        const totalDurationEl = document.getElementById('total-duration');
+        if (totalDurationEl) {
+            if (!startDate || !endDate) {
+                totalDurationEl.textContent = 'Not set';
+            } else {
+                const totalDays = Math.floor((endDate - startDate) / (1000 * 60 * 60 * 24));
+                totalDurationEl.textContent = `${totalDays} days`;
+            }
+        }
+
+        // Gallery status
+        let statusText = 'Hidden';
+        if (config.MANUAL_CONTROL) {
+            statusText = config.IS_VISIBLE ? 'Manual: Active' : 'Manual: Hidden';
+        } else if (config.IS_VISIBLE) {
+            if (startDate && now < startDate) {
+                statusText = 'Upcoming';
+            } else if (endDate && now > endDate) {
+                statusText = 'Ended';
+            } else {
+                statusText = 'Active';
+            }
+        }
+        
+        const galleryStatusEl = document.getElementById('gallery-status');
+        if (galleryStatusEl) galleryStatusEl.textContent = statusText;
+
+        // Last updated
+        const lastUpdatedEl = document.getElementById('last-updated');
+        if (lastUpdatedEl && config.lastUpdated) {
+            const updatedDate = new Date(config.lastUpdated);
+            lastUpdatedEl.textContent = updatedDate.toLocaleTimeString('en-US', { 
+                hour: '2-digit', 
+                minute: '2-digit',
+                second: '2-digit'
+            });
+        }
+    }
+
+    // Show message
+    function showMessage(message, type = 'info') {
+        const messageDiv = document.getElementById('config-message');
+        if (!messageDiv) return;
+
+        messageDiv.textContent = message;
+        messageDiv.className = `status-message status-${type}`;
+        messageDiv.style.display = 'block';
+
+        // Auto-hide success messages after 5 seconds
+        if (type === 'success') {
+            setTimeout(() => {
+                messageDiv.style.display = 'none';
+            }, 5000);
+        }
+    }
+
+    // Start clock
+    function startClock() {
+        function updateClock() {
+            const now = new Date();
+            document.getElementById('current-time').textContent = now.toLocaleTimeString('en-US', { 
+                hour: '2-digit', 
+                minute: '2-digit',
+                second: '2-digit'
+            });
+        }
+        updateClock();
+        setInterval(updateClock, 1000);
+    }
+
+    // Check Firebase connection
+    function checkFirebaseConnection() {
+        const statusEl = document.getElementById('firebase-status');
+        const statusTextEl = document.getElementById('firebase-status-text');
+        
+        if (!database || !firebaseInitialized) {
+            if (statusEl) statusEl.className = 'status-indicator status-inactive';
+            if (statusTextEl) statusTextEl.textContent = 'Not connected';
+            return;
+        }
+        
+        // Try a simple read to test connection
+        database.ref('.info/connected').on('value', (snapshot) => {
+            const connected = snapshot.val();
+            if (statusEl) {
+                statusEl.className = connected ? 'status-indicator status-active' : 'status-indicator status-inactive';
+            }
+            if (statusTextEl) {
+                statusTextEl.textContent = connected ? 'Connected' : 'Disconnected';
+            }
+        });
+    }
+
+    // Refresh data
+    function refreshData() {
+        if (currentConfig) {
+            updateStatusDisplay(currentConfig);
+            updateStatistics(currentConfig);
+        }
+        loadDownloadStats();
+        showMessage('Data refreshed!', 'success');
+    }
+
+    // Initialize on page load
+    document.addEventListener('DOMContentLoaded', function() {
+        checkAuth();
+        
+        // Add event listeners for Enter key in login form
+        const usernameField = document.getElementById('username');
+        const passwordField = document.getElementById('password');
+        
+        if (usernameField) usernameField.addEventListener('keypress', handleLoginKeyPress);
+        if (passwordField) passwordField.addEventListener('keypress', handleLoginKeyPress);
+    });
+
+    // Handle page visibility changes for real-time updates
+    document.addEventListener('visibilitychange', function() {
+        if (!document.hidden && localStorage.getItem('adminLoggedIn') === 'true') {
+            // Page became visible, refresh data
+            if (currentConfig) {
+                updateStatusDisplay(currentConfig);
+                updateStatistics(currentConfig);
+            }
+            loadDownloadStats();
+        }
+    });
+    </script>
+</body>
+</html>

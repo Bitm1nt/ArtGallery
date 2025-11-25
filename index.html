@@ -1,0 +1,601 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Project">
+    <meta name="keywords" content="Project">
+    <meta name="author" content="Project">
+    <link rel="stylesheet" href="style.css">
+    <link rel="icon" type="image/png" href="images/logo.jpg">
+    <title>Project</title>
+    
+    <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-database-compat.js"></script>
+</head>
+<body>
+    <div class="night" id="meteor-container"></div>
+    <script src="index.js"></script>
+    <main>
+        <nav>
+            <div class="logo semibold">
+                <a href="#home" class="alogo">
+                    <img src="images/logo.jpg" alt="#">
+                </a>
+            </div>
+            <div class="menu-toggle" id="mobile-menu">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </div>
+            <ul class="nav-links">
+                <li><a href="#home" class="regular">Home</a></li>
+                <li><a href="#testimonials" class="regular">Testimonials</a></li>
+                <li><a href="#faq" class="regular">FAQ</a></li>
+                <li class="mobile-getstarted">
+                    <div class="border">
+                        <div class="getstarted regular">Developer</div>
+                    </div>
+                </li>
+            </ul>
+            <div class="desktop-getstarted">
+                <a href="https://discord.gg/website" target="_blank" style="text-decoration: none; color:#ccc;"><div class="getstarted regular">Built by Scopex</div></a>
+            </div>
+        </nav>
+        <section class="hero" id="home">
+            <div class="container scroll-animate animate-fade-up">
+                <img src="images/Blot.png" alt="Welcome" class="hero-welcome-image">
+                <p class="under semibold"></p>
+                <div class="contacts">
+                    <a href="#"><input type="button" value="View Gallery" class="waitlistbutton semibold buttonn"></a>
+                </div>
+            </div>
+        </section>
+        <section class="art-display" id="features">
+            <div class="container">
+                <p class="title bold scroll-animate animate-fade-up"><span class="grad bold">Art Gallery</span></p>
+                <p class="under semibold scroll-animate animate-fade-up delay-100">Showcasing creative works from our talented community.</p>
+                <div class="art-boxes">
+                    <div class="art-box scroll-animate animate-fade-up delay-200" data-art="Bloom Eye" data-date="Aug. 2025" data-image="images/Bloom Eye Aug. 2025.PNG">
+                        <p class="art-title semibold">Bloom Eye</p>
+                        <p class="art-desc regular">Aug. 2025</p>
+                        <img src="images/Bloom Eye Aug. 2025.PNG" alt="Bloom Eye Artwork">
+                    </div>
+
+                    <div class="art-box scroll-animate animate-fade-up delay-300" data-art="Become a Challenge" data-date="Oct. 2025" data-image="images/Become a CHALLENGE Oct. 2025.PNG">
+                        <p class="art-title semibold">Become a Challenge</p>
+                        <p class="art-desc regular">Oct. 2025</p>
+                        <img src="images/Become a CHALLENGE Oct. 2025.PNG" alt="Become a Challenge Artwork">
+                    </div>
+
+                    <div class="art-box scroll-animate animate-fade-up delay-400" data-art="Disposable" data-date="Nov. 2025" data-image="images/Disposable Nov. 2025.PNG">
+                        <p class="art-title semibold">Disposable</p>
+                        <p class="art-desc regular">Nov. 2025</p>
+                        <img src="images/Disposable Nov. 2025.PNG" alt="Disposable Artwork">
+                    </div>
+
+                    <div class="art-box scroll-animate animate-fade-up delay-200" data-art="Approval" data-date="Sept. 2025" data-image="images/Approval Sept .2025.PNG">
+                        <p class="art-title semibold">Approval</p>
+                        <p class="art-desc regular">Sept. 2025</p>
+                        <img src="images/Approval Sept .2025.PNG" alt="Approval Artwork">
+                    </div>
+
+                    <div class="art-box scroll-animate animate-fade-up delay-300" data-art="ECig" data-date="Nov. 2025" data-image="images/ECig Nov. 2025.PNG">
+                        <p class="art-title semibold">ECig</p>
+                        <p class="art-desc regular">Nov. 2025</p>
+                        <img src="images/ECig Nov. 2025.PNG" alt="ECig Artwork">
+                    </div>
+
+                    <div class="art-box scroll-animate animate-fade-up delay-400" data-art="Adol" data-date="Sept. 2025" data-image="images/Adol Sept.2025.PNG">
+                        <p class="art-title semibold">Adol</p>
+                        <p class="art-desc regular">Sept. 2025</p>
+                        <img src="images/Adol Sept.2025.PNG" alt="Adol Artwork">
+                    </div>
+
+                    <div class="art-box scroll-animate animate-fade-up delay-200" data-art="Address" data-date="Oct. 2025" data-image="images/Address Oct. 2025.PNG">
+                        <p class="art-title semibold">Address</p>
+                        <p class="art-desc regular">Oct. 2025</p>
+                        <img src="images/Address Oct. 2025.PNG" alt="Address Artwork">
+                    </div>
+
+                    <div class="art-box scroll-animate animate-fade-up delay-300" data-art="Am I" data-date="Oct. 2025" data-image="images/Am I Oct. 2025.PNG">
+                        <p class="art-title semibold">Am I</p>
+                        <p class="art-desc regular">Oct. 2025</p>
+                        <img src="images/Am I Oct. 2025.PNG" alt="Am I Artwork">
+                    </div>
+
+                    <div class="art-box scroll-animate animate-fade-up delay-400" data-art="Broken Screen" data-date="Oct. 2025" data-image="images/Broken Screen Oct. 2025.PNG">
+                        <p class="art-title semibold">Broken Screen</p>
+                        <p class="art-desc regular">Oct. 2025</p>
+                        <img src="images/Broken Screen Oct. 2025.PNG" alt="Broken Screen Artwork">
+                    </div>
+
+                    <div class="art-box scroll-animate animate-fade-up delay-200" data-art="Empty" data-date="Sept. 2025" data-image="images/Empty Sept. 2025.PNG">
+                        <p class="art-title semibold">Empty</p>
+                        <p class="art-desc regular">Sept. 2025</p>
+                        <img src="images/Empty Sept. 2025.PNG" alt="Empty Artwork">
+                    </div>
+
+                    <div class="art-box scroll-animate animate-fade-up delay-300" data-art="Filled" data-date="Sept. 2025" data-image="images/Filled Sept. 2025.PNG">
+                        <p class="art-title semibold">Filled</p>
+                        <p class="art-desc regular">Sept. 2025</p>
+                        <img src="images/Filled Sept. 2025.PNG" alt="Filled Artwork">
+                    </div>
+
+                    <div class="art-box scroll-animate animate-fade-up delay-400" data-art="For Profit" data-date="Aug. 2025" data-image="images/For Profit Aug. 2025.PNG">
+                        <p class="art-title semibold">For Profit</p>
+                        <p class="art-desc regular">Aug. 2025</p>
+                        <img src="images/For Profit Aug. 2025.PNG" alt="For Profit Artwork">
+                    </div>
+
+                    <div class="art-box scroll-animate animate-fade-up delay-200" data-art="Fri B" data-date="Oct. 2025" data-image="images/Fri B Oct. 2025 .PNG">
+                        <p class="art-title semibold">Fri B</p>
+                        <p class="art-desc regular">Oct. 2025</p>
+                        <img src="images/Fri B Oct. 2025 .PNG" alt="Fri B Artwork">
+                    </div>
+
+                    <div class="art-box scroll-animate animate-fade-up delay-300" data-art="Fri S" data-date="Oct. 2025" data-image="images/Fri S Oct. 2025.PNG">
+                        <p class="art-title semibold">Fri S</p>
+                        <p class="art-desc regular">Oct. 2025</p>
+                        <img src="images/Fri S Oct. 2025.PNG" alt="Fri S Artwork">
+                    </div>
+
+                    <div class="art-box scroll-animate animate-fade-up delay-400" data-art="Hate" data-date="Sept. 2025" data-image="images/HATE Sept. 2025.PNG">
+                        <p class="art-title semibold">Hate</p>
+                        <p class="art-desc regular">Sept. 2025</p>
+                        <img src="images/HATE Sept. 2025.PNG" alt="Hate Artwork">
+                    </div>
+
+                    <div class="art-box scroll-animate animate-fade-up delay-200" data-art="Rejected View" data-date="Sept. 2025" data-image="images/Rejected View Sept. 2025.PNG">
+                        <p class="art-title semibold">Rejected View</p>
+                        <p class="art-desc regular">Sept. 2025</p>
+                        <img src="images/Rejected View Sept. 2025.PNG" alt="Rejected View Artwork">
+                    </div>
+
+                    <div class="art-box scroll-animate animate-fade-up delay-300" data-art="Unpalatable" data-date="Oct. 2025" data-image="images/Unpalatable Oct. 2025.PNG">
+                        <p class="art-title semibold">Unpalatable</p>
+                        <p class="art-desc regular">Oct. 2025</p>
+                        <img src="images/Unpalatable Oct. 2025.PNG" alt="Unpalatable Artwork">
+                    </div>
+
+                    <div class="art-box scroll-animate animate-fade-up delay-400" data-art="Unsatisfied Fem" data-date="Nov. 2025" data-image="images/Unsatisfied Fem Nov. 2025.PNG">
+                        <p class="art-title semibold">Unsatisfied Fem</p>
+                        <p class="art-desc regular">Nov. 2025</p>
+                        <img src="images/Unsatisfied Fem Nov. 2025.PNG" alt="Unsastisfied Fem Artwork">
+                    </div>
+
+                    <div class="art-box scroll-animate animate-fade-up delay-200" data-art="Urinal" data-date="Nov. 2025" data-image="images/Urinal Sept. 2025.PNG">
+                        <p class="art-title semibold">Urinal</p>
+                        <p class="art-desc regular">Nov. 2025</p>
+                        <img src="images/Urinal Sept. 2025.PNG" alt="Urinal Artwork">
+                    </div>
+
+                    <div class="art-box scroll-animate animate-fade-up delay-300" data-art="Wet" data-date="Aug. 2025" data-image="images/Wet Aug. 2025.PNG">
+                        <p class="art-title semibold">Wet</p>
+                        <p class="art-desc regular">Aug. 2025</p>
+                        <img src="images/Wet Aug. 2025.PNG" alt="Urinal Artwork">
+                    </div>
+
+                    <!-- New Artworks Start Here -->
+                    <div class="art-box scroll-animate animate-fade-up delay-400" data-art="adol 2" data-date="Sept. 2025" data-image="images/adol 2 Sept. 2025.PNG">
+                        <p class="art-title semibold">adol 2</p>
+                        <p class="art-desc regular">Sept. 2025</p>
+                        <img src="images/adol 2 Sept. 2025.PNG" alt="adol 2 Artwork">
+                    </div>
+
+                    <div class="art-box scroll-animate animate-fade-up delay-200" data-art="Another Screen" data-date="Nov. 2025" data-image="images/Another Screen Nov. 2025.png">
+                        <p class="art-title semibold">Another Screen</p>
+                        <p class="art-desc regular">Nov. 2025</p>
+                        <img src="images/Another Screen Nov. 2025.png" alt="Another Screen Artwork">
+                    </div>
+
+                    <div class="art-box scroll-animate animate-fade-up delay-400" data-art="Blame" data-date="Nov. 2025" data-image="images/Blame Nov. 2025.png">
+                        <p class="art-title semibold">Blame</p>
+                        <p class="art-desc regular">Nov. 2025</p>
+                        <img src="images/Blame Nov. 2025.png" alt="Blame Artwork">
+                    </div>
+
+                    <div class="art-box scroll-animate animate-fade-up delay-200" data-art="Body n Smoke" data-date="Nov. 2025" data-image="images/Body n Smoke Nov. 2025.PNG">
+                        <p class="art-title semibold">Body n Smoke</p>
+                        <p class="art-desc regular">Nov. 2025</p>
+                        <img src="images/Body n Smoke Nov. 2025.PNG" alt="Body n Smoke Artwork">
+                    </div>
+
+                    <div class="art-box scroll-animate animate-fade-up delay-300" data-art="Cost Blame" data-date="Nov. 2025" data-image="images/Cost Blame Nov. 2025.png">
+                        <p class="art-title semibold">Cost Blame</p>
+                        <p class="art-desc regular">Nov. 2025</p>
+                        <img src="images/Cost Blame Nov. 2025.png" alt="Cost Blame Artwork">
+                    </div>
+
+                    <div class="art-box scroll-animate animate-fade-up delay-400" data-art="Edit Screen" data-date="Nov. 2025" data-image="images/Edit Screen Nov. 2025.png">
+                        <p class="art-title semibold">Edit Screen</p>
+                        <p class="art-desc regular">Nov. 2025</p>
+                        <img src="images/Edit Screen Nov. 2025.png" alt="Edit Screen Artwork">
+                    </div>
+
+                    <div class="art-box scroll-animate animate-fade-up delay-200" data-art="Eyes" data-date="Sept. 2025" data-image="images/Eyes Sept. 2025.PNG">
+                        <p class="art-title semibold">Eyes</p>
+                        <p class="art-desc regular">Sept. 2025</p>
+                        <img src="images/Eyes Sept. 2025.PNG" alt="Eyes Artwork">
+                    </div>
+
+                    <div class="art-box scroll-animate animate-fade-up delay-400" data-art="Gun Fear" data-date="Nov. 2025" data-image="images/Gun Fear Nov. 2025 .PNG">
+                        <p class="art-title semibold">Gun Fear</p>
+                        <p class="art-desc regular">Nov. 2025</p>
+                        <img src="images/Gun Fear Nov. 2025 .PNG" alt="Gun Fear Artwork">
+                    </div>
+
+                    <div class="art-box scroll-animate animate-fade-up delay-200" data-art="Library Vape" data-date="Nov. 2025" data-image="images/Library Vape Nov. 2025.PNG">
+                        <p class="art-title semibold">Library Vape</p>
+                        <p class="art-desc regular">Nov. 2025</p>
+                        <img src="images/Library Vape Nov. 2025.PNG" alt="Library Vape Artwork">
+                    </div>
+
+                    <div class="art-box scroll-animate animate-fade-up delay-300" data-art="Locker 1" data-date="Sept. 2025" data-image="images/Locker 1 Sept. 2025.PNG">
+                        <p class="art-title semibold">Locker 1</p>
+                        <p class="art-desc regular">Sept. 2025</p>
+                        <img src="images/Locker 1 Sept. 2025.PNG" alt="Locker 1 Artwork">
+                    </div>
+
+                    <div class="art-box scroll-animate animate-fade-up delay-400" data-art="Locker 2" data-date="Sept. 2025" data-image="images/Locker 1 Sept. 2025.PNG">
+                        <p class="art-title semibold">Locker 2</p>
+                        <p class="art-desc regular">Sept. 2025</p>
+                        <img src="images/Locker 2 Sept. 2025.PNG" alt="Locker 2 Artwork">
+                    </div>
+
+                    <div class="art-box scroll-animate animate-fade-up delay-200" data-art="Locker 3" data-date="Sept. 2025" data-image="images/Locker 1 Sept. 2025.PNG">
+                        <p class="art-title semibold">Locker 3</p>
+                        <p class="art-desc regular">Sept. 2025</p>
+                        <img src="images/Locker 3 Sept. 2025.PNG" alt="Locker 3 Artwork">
+                    </div>
+
+                    <div class="art-box scroll-animate animate-fade-up delay-300" data-art="Memories" data-date="Sept. 2025" data-image="images/Memories Sept. 2025.PNG">
+                        <p class="art-title semibold">Memories</p>
+                        <p class="art-desc regular">Sept. 2025</p>
+                        <img src="images/Memories Sept. 2025.PNG" alt="Memories Artwork">
+                    </div>
+
+                    <div class="art-box scroll-animate animate-fade-up delay-400" data-art="next" data-date="Nov. 2025" data-image="images/next Nov. 2025.PNG">
+                        <p class="art-title semibold">next</p>
+                        <p class="art-desc regular">Nov. 2025</p>
+                        <img src="images/next Nov. 2025.PNG" alt="next Artwork">
+                    </div>
+
+                    <div class="art-box scroll-animate animate-fade-up delay-300" data-art="Process Plaster Ink" data-date="Sept. 2025" data-image="images/Process Plaster Ink Sept. 2025.png">
+                        <p class="art-title semibold">Process Plaster Ink</p>
+                        <p class="art-desc regular">Sept. 2025</p>
+                        <img src="images/Process Plaster Ink Sept. 2025.png" alt="Process Plaster Ink Artwork">
+                    </div>
+
+                    <div class="art-box scroll-animate animate-fade-up delay-400" data-art="Process" data-date="Sept. 2025" data-image="images/Process Sept. 2025.png">
+                        <p class="art-title semibold">Process</p>
+                        <p class="art-desc regular">Sept. 2025</p>
+                        <img src="images/Process Sept. 2025.png" alt="Process Artwork">
+                    </div>
+
+                    <div class="art-box scroll-animate animate-fade-up delay-200" data-art="Public" data-date="Oct. 2025" data-image="images/Public Oct. 2025.png">
+                        <p class="art-title semibold">Public</p>
+                        <p class="art-desc regular">Oct. 2025</p>
+                        <img src="images/Public Oct. 2025.png" alt="Public Artwork">
+                    </div>
+
+                    <div class="art-box scroll-animate animate-fade-up delay-300" data-art="Refuse and Dance" data-date="Nov. 2025" data-image="images/Refuse and Dance Nov. 2025.png">
+                        <p class="art-title semibold">Refuse and Dance</p>
+                        <p class="art-desc regular">Nov. 2025</p>
+                        <img src="images/Refuse and Dance Nov. 2025.png" alt="Refuse and Dance Artwork">
+                    </div>
+
+                    <div class="art-box scroll-animate animate-fade-up delay-400" data-art="To Anon" data-date="Sept. 2025" data-image="images/To Anon Sept. 2025.png">
+                        <p class="art-title semibold">To Anon</p>
+                        <p class="art-desc regular">Sept. 2025</p>
+                        <img src="images/To Anon Sept. 2025.png" alt="To Anon Artwork">
+                    </div>
+
+                    <div class="art-box scroll-animate animate-fade-up delay-200" data-art="Turn It Off" data-date="Oct. 2025" data-image="images/Turn It Off Oct. 2025.png">
+                        <p class="art-title semibold">Turn It Off</p>
+                        <p class="art-desc regular">Oct. 2025</p>
+                        <img src="images/Turn It Off Oct. 2025.png" alt="Turn It Off Artwork">
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section class="reviews" id="testimonials">
+            <div class="container">
+                <div class="stars scroll-animate animate-fade-up">
+                    <img src="images/star.png" alt="Star rating">
+                    <img src="images/star.png" alt="Star rating">
+                    <img src="images/star.png" alt="Star rating">
+                    <img src="images/star.png" alt="Star rating">
+                    <img src="images/star.png" alt="Star rating">
+                </div>
+                <p class="title bold scroll-animate animate-fade-up delay-100">Happy <span class="grad">Collectors</span></p>
+                <div class="boxes">
+                    <div class="box scroll-animate animate-fade-up delay-200">
+                        <div class="profile">
+                            <img src="images/person1.jpg" alt="Customer profile">
+                            <div class="cred">
+                                <span class="grad semibold name">Jolly C.</span><br>
+                                <span class="work regular">Gallery Owner</span>
+                            </div>
+                        </div>
+                        <p class="desc regular">This artist is a bit crazy with their approach but i really enjoyed seeing their work</p>
+                    </div>
+                    <div class="box scroll-animate animate-fade-up delay-300">
+                        <div class="profile">
+                            <img src="images/person2.jpg" alt="Customer profile">
+                            <div class="cred">
+                                <span class="grad semibold name">Luna B.</span><br>
+                                <span class="work regular">Just a person</span>
+                            </div>
+                        </div>
+                        <p class="desc regular">at first, i heard a sculpture student but i didn't expect this</p>
+                    </div>
+                    <div class="box scroll-animate animate-fade-up delay-400">
+                        <div class="profile">
+                            <img src="images/person3.jpg" alt="Customer profile">
+                            <div class="cred">
+                                <span class="grad semibold name">Max T.</span><br>
+                                <span class="work regular">Freelancer</span>
+                            </div>
+                        </div>
+                        <p class="desc regular">This is so weird but i kinda dig it?</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section class="faq" id="faq">
+            <div class="container">
+                <p class="title bold scroll-animate animate-fade-up">Frequently Asked <span class="grad bold">Questions!</span></p>
+                <p class="under regular scroll-animate animate-fade-up delay-100">Everything you need to know about <span class="grad semibold">Us</span></p>
+                <div class="questions">
+                    <div class="question scroll-animate animate-fade-up delay-200">
+                        <div class="question-header">
+                            <p class="question-title regular">Who is The Artist?</p>
+                            <span class="question-toggle">+</span>
+                        </div>
+                        <div class="question-answer">
+                            <p class="desc regular">Joanna is an artist born and raised in South Florida, who is currently attending Kansas City Art institute. Her current work focuses on challenging and questioning personal expectations through confronting text</p>
+                        </div>
+                    </div>
+                    <div class="question scroll-animate animate-fade-up delay-300">
+                        <div class="question-header">
+                            <p class="question-title regular">How are these works made?</p>
+                            <span class="question-toggle">+</span>
+                        </div>
+                        <div class="question-answer">
+                            <p class="desc regular">This collection includes manipulated photographs and digital collages made through scans or adobe softwares</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <footer id="contacts">
+            <div class="box scroll-animate animate-fade-up">
+                <img src="images/logo.jpg" alt="Company logo" class="logo">
+                <p class="name bold">Artwork</p>
+                <p class="under regular">The best way of<br>Expressing feelings</p>
+            </div>
+            <div class="box regular scroll-animate animate-fade-up delay-100">
+                <p class="title bold grad">Quick Links</p>
+                <a href="#home"><li>Home</li></a>
+                <a href="#features"><li>Artwork</li></a>
+                <a href="#testimonials"><li>Testimonials</li></a>
+                <a href="#faq"><li>FAQ</li></a>
+            </div>
+            <div class="line scroll-animate animate-fade-up delay-400"></div>
+            <div class="cp">
+                <p class="copy regular">&copy 2025 Artwork. All rights reserved</p>
+            </div>
+        </footer>
+    </main>
+
+    <!-- Art Modal -->
+<div id="art-modal" class="art-modal-overlay">
+    <div class="art-modal">
+        <div class="art-modal-header">
+            <h3 id="modal-art-title"></h3>
+            <span class="art-modal-close">&times;</span>
+        </div>
+        <div class="art-modal-body">
+            <img id="modal-art-image" src="" alt="">
+            <div class="art-modal-info">
+                <p id="modal-art-date" class="art-modal-date"></p>
+                <p class="art-modal-description">Exclusive digital artwork - Download with quality that decreases with each download</p>
+                
+                <!-- Enhanced Download Stats -->
+                <div class="download-quality-info">
+                    <p class="quality-text">Download Quality: <span id="quality-value">100%</span></p>
+                    <div class="quality-progress">
+                        <div class="quality-progress-bar" style="width: 100%"></div>
+                    </div>
+                    <p class="download-count-text">Total Downloads: <span id="download-value">0</span></p>
+                    
+                    
+                    <p class="quality-note">
+                        ⚠️ Quality decreases by 5% every download.<br>
+                        Early downloads get the highest quality versions!
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="art-modal-footer">
+            <button id="download-art" class="art-modal-button download-btn">
+                📥 Download Artwork
+            </button>
+            <button class="art-modal-button close-btn">
+                Close
+            </button>
+        </div>
+    </div>
+</div>
+<script>
+// Prevent right-click context menu on images
+document.addEventListener('contextmenu', function(e) {
+    if (e.target.closest('.art-modal-body') || e.target.id === 'modal-art-image') {
+        e.preventDefault();
+        return false;
+    }
+});
+
+// Prevent drag and drop of images
+document.addEventListener('dragstart', function(e) {
+    if (e.target.closest('.art-modal-body') || e.target.id === 'modal-art-image') {
+        e.preventDefault();
+        return false;
+    }
+});
+
+// Prevent image selection
+document.addEventListener('selectstart', function(e) {
+    if (e.target.closest('.art-modal-body') || e.target.id === 'modal-art-image') {
+        e.preventDefault();
+        return false;
+    }
+});
+
+// Disable keyboard shortcuts for saving
+document.addEventListener('keydown', function(e) {
+    // Disable F12, Ctrl+Shift+I, Ctrl+Shift+J, Ctrl+U, Ctrl+S, etc.
+    if (e.keyCode === 123 || 
+        (e.ctrlKey && e.shiftKey && (e.keyCode === 73 || e.keyCode === 74 || e.keyCode === 67)) ||
+        (e.ctrlKey && e.keyCode === 85) ||
+        (e.ctrlKey && e.keyCode === 83) ||
+        (e.metaKey && e.keyCode === 83)) {
+        e.preventDefault();
+        return false;
+    }
+});
+
+// Add CSS protection when modal is open
+function addImageProtection() {
+    const style = document.createElement('style');
+    style.id = 'image-protection-styles';
+    style.textContent = `
+        .art-modal-body img {
+            pointer-events: none;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+            -webkit-touch-callout: none;
+            -webkit-tap-highlight-color: transparent;
+        }
+        .image-protection-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: transparent;
+            z-index: 1000;
+            pointer-events: none;
+        }
+        .art-modal-open body {
+            overflow: hidden;
+        }
+    `;
+    document.head.appendChild(style);
+}
+
+// Initialize protection when page loads
+document.addEventListener('DOMContentLoaded', function() {
+    addImageProtection();
+});
+</script>
+<script>
+// Function to redirect to Discord
+    function redirectToDiscord() {
+        window.location.href = 'https://discord.gg/website';
+    }
+
+    // Disable right-click context menu and redirect
+    document.addEventListener('contextmenu', function(e) {
+        e.preventDefault();
+        return false;
+    });
+
+    // Disable developer tools keyboard shortcuts and redirect
+    document.addEventListener('keydown', function(e) {
+        // Disable F12
+        if (e.key === 'F12') {
+            e.preventDefault();
+            redirectToDiscord();
+            return false;
+        }
+        
+        // Disable Ctrl+Shift+I (Chrome, Edge, Firefox)
+        if (e.ctrlKey && e.shiftKey && e.key === 'I') {
+            e.preventDefault();
+            redirectToDiscord();
+            return false;
+        }
+        
+        // Disable Ctrl+Shift+J (Chrome, Edge)
+        if (e.ctrlKey && e.shiftKey && e.key === 'J') {
+            e.preventDefault();
+            redirectToDiscord();
+            return false;
+        }
+        
+        // Disable Ctrl+Shift+C (Chrome, Edge, Firefox)
+        if (e.ctrlKey && e.shiftKey && e.key === 'C') {
+            e.preventDefault();
+            redirectToDiscord();
+            return false;
+        }
+        
+        // Disable Ctrl+U (View source)
+        if (e.ctrlKey && e.key === 'u') {
+            e.preventDefault();
+            redirectToDiscord();
+            return false;
+        }
+        
+        // Disable Cmd+Option+I (Mac Chrome)
+        if (e.metaKey && e.altKey && e.key === 'I') {
+            e.preventDefault();
+            redirectToDiscord();
+            return false;
+        }
+        
+        // Disable Cmd+Option+J (Mac Chrome)
+        if (e.metaKey && e.altKey && e.key === 'J') {
+            e.preventDefault();
+            redirectToDiscord();
+            return false;
+        }
+        
+        // Disable Cmd+Option+C (Mac Chrome)
+        if (e.metaKey && e.altKey && e.key === 'C') {
+            e.preventDefault();
+            redirectToDiscord();
+            return false;
+        }
+        
+        // Disable Cmd+U (Mac View source)
+        if (e.metaKey && e.key === 'u') {
+            e.preventDefault();
+            redirectToDiscord();
+            return false;
+        }
+    });
+
+    // Additional protection: Disable drag and drop for images and redirect
+    document.addEventListener('dragstart', function(e) {
+        if (e.target.tagName === 'IMG') {
+            e.preventDefault();
+            return false;
+        }
+    });
+
+    // Disable text selection on images and other protected elements and redirect
+    document.addEventListener('selectstart', function(e) {
+        if (e.target.tagName === 'IMG' || e.target.closest('.art-modal-body')) {
+            e.preventDefault();
+            return false;
+        }
+    });
+</script>
+</body>
+</html>
